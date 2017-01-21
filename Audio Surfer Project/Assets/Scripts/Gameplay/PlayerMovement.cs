@@ -203,7 +203,7 @@ public class PlayerMovement : MonoBehaviour
 		}
 
 		_currentVelocity += _currentJumpforce;
-		_currentJumpforce = _currentJumpforce / 1.5f;
+		_currentJumpforce = _currentJumpforce / 1.3f;
 		_currentJumpCount++;
 		Launch ();
 	}
