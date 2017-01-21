@@ -9,4 +9,11 @@ public class Enums
 		OnGround,
 		InAir
 	}
+
+	public enum TrickType
+	{
+		Trick1,
+		Trick2,
+		Trick3
+	}
 }
