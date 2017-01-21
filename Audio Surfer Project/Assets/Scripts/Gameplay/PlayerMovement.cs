@@ -35,7 +35,7 @@ public class PlayerMovement : MonoBehaviour
 			{
 				_currentVelocity = 0;
 			}
-			_currentVelocity += l_groundY - _transform.position.y;
+			_currentVelocity += (l_groundY - _transform.position.y) * Constants.SLOPE_VELOCITY_INCREASE;
 
 			Vector3 l_newPosition = _transform.position;
 			l_newPosition.y = l_groundY;
@@ -108,7 +108,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			_currentVelocity = (Mathf.Sign (_currentVelocity) * Constants.TERMINAL_VELOCITY);
 		}
-
+			
 		Vector3 l_newPosition = _transform.position;
 		l_newPosition.y += _currentVelocity * Time.deltaTime;
 
