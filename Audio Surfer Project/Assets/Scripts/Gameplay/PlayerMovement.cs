@@ -24,6 +24,7 @@ public class PlayerMovement : MonoBehaviour
 		CheckGrounded ();
 		CheckPlayerInput ();
 		MovePlayer ();
+		CheckScore ();
 
 		_previousY = WaveManager.instance.groundY;
 	}
@@ -144,6 +145,16 @@ public class PlayerMovement : MonoBehaviour
 		_transform.position = l_newPosition;
 	}
 
+	private void CheckScore ()
+	{
+		if (_groundedState != Enums.PlayerGroundState.InAir) 
+		{
+			return;
+		}
+
+		ScoreManager.instance.currentComboScore += Constants.AIR_SCORE_PER_SECOND * Time.deltaTime;
+	}
+
 	private void Launch ()
 	{
 		// Do jumping stuff
@@ -184,6 +195,7 @@ public class PlayerMovement : MonoBehaviour
 			_groundedState = Enums.PlayerGroundState.OnGround;
 			_currentJumpforce = Constants.JUMP_VELOCITY;
 			_currentJumpCount = 0;
+			ScoreManager.instance.CompleteCombo ();
 		}
 	}
 }
