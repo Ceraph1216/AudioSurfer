@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class WaveManager : MonoBehaviour 
 {
+	public static WaveManager instance;
+
 	public LayerMask floorMask;
 
 	private Transform _transform;
@@ -24,6 +26,7 @@ public class WaveManager : MonoBehaviour
 	void Awake ()
 	{
 		_transform = transform;
+		instance = this;
 	}
 	
 	// Update is called once per frame
