@@ -11,4 +11,6 @@ public class Constants
 	public const float SLOPE_VELOCITY_INCREASE = 2f;
 	public const int AIR_JUMP_LIMIT = 4;
 	public const float AIR_SCORE_PER_SECOND = 50f;
+	public const float LENGTH_MODIFIER = 0.05f;
+	public const float VARIATION_MODIFIER = 1f;
 }

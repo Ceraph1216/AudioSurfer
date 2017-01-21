@@ -38,8 +38,8 @@ public class ScoreManager : MonoBehaviour
 
 	public void CompleteCombo ()
 	{
-		float l_lengthMod = 1f + (_comboTricks.Count / 10f);
-		float l_variationMod = 1f + _usedTricks.Count;
+		float l_lengthMod = 1f + (_comboTricks.Count * Constants.LENGTH_MODIFIER);
+		float l_variationMod = 1f + (_usedTricks.Count * Constants.VARIATION_MODIFIER);
 
 		currentComboScore = currentComboScore * l_lengthMod * l_variationMod;
 
