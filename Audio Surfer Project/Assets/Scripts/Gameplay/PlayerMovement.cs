@@ -233,7 +233,20 @@ public class PlayerMovement : MonoBehaviour
 			_groundedState = Enums.PlayerGroundState.OnGround;
 			_currentJumpforce = Constants.JUMP_VELOCITY;
 			_currentJumpCount = 0;
-			ScoreManager.instance.CompleteCombo ();
+			if (_currentTrickCooldown > 0) 
+			{
+				Wipeout ();
+			} 
+			else 
+			{
+				ScoreManager.instance.CompleteCombo ();
+			}
+
 		}
+	}
+
+	private void Wipeout ()
+	{
+		ScoreManager.instance.Wipeout ();
 	}
 }

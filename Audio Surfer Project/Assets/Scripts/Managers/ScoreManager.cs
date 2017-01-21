@@ -36,6 +36,16 @@ public class ScoreManager : MonoBehaviour
 		_usedTricks = new List<Enums.TrickType> ();
 	}
 
+	public void AddTrick (Trick p_trick)
+	{
+		_comboTricks.Add (p_trick);
+		if (!_usedTricks.Contains (p_trick.trickType)) 
+		{
+			_usedTricks.Add (p_trick.trickType);
+		}
+		currentComboScore += p_trick.score;
+	}
+
 	public void CompleteCombo ()
 	{
 		float l_lengthMod = 1f + (_comboTricks.Count * Constants.LENGTH_MODIFIER);
@@ -49,13 +59,10 @@ public class ScoreManager : MonoBehaviour
 		_usedTricks = new List<Enums.TrickType> ();
 	}
 
-	public void AddTrick (Trick p_trick)
+	public void Wipeout ()
 	{
-		_comboTricks.Add (p_trick);
-		if (!_usedTricks.Contains (p_trick.trickType)) 
-		{
-			_usedTricks.Add (p_trick.trickType);
-		}
-		currentComboScore += p_trick.score;
+		currentComboScore = 0;
+		_comboTricks = new List<Trick> ();
+		_usedTricks = new List<Enums.TrickType> ();
 	}
 }
