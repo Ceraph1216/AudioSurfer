@@ -219,7 +219,7 @@ public class PlayerMovement : MonoBehaviour
 
 		//TODO: play animation
 
-		ScoreManager.instance.currentComboScore += l_currentTrick.score;
+		ScoreManager.instance.AddTrick (l_currentTrick);
 		_currentTrickCooldown = l_currentTrick.cooldown;
 
 		Jump ();
