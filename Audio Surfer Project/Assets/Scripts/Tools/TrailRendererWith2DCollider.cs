@@ -20,6 +20,7 @@ public class TrailRendererWith2DCollider : MonoBehaviour {
 	public bool colliderIsTrigger = true;           //determines if the collider is a trigger.  Changing this during runtime will have no effect.
 	public bool colliderEnabled = true;             //determines if the collider is enabled.  Changing this during runtime will have no effect.
 	public bool pausing = false;                     //determines if the trail is pausing, i.e. neither creating nor destroying vertices
+	public Color color = Color.white;
 
 	private Transform trans;                        //transform of the object this script is attached to                    
 	private Mesh mesh;                              
@@ -70,7 +71,9 @@ public class TrailRendererWith2DCollider : MonoBehaviour {
 		GameObject trail = new GameObject("Trail", new[] { typeof(MeshRenderer), typeof(MeshFilter), typeof(PolygonCollider2D) } );
 		trail.layer = gameObject.layer;
 		mesh = trail.GetComponent<MeshFilter>().mesh = new Mesh();
-		trail.GetComponent<Renderer>().material = trailMaterial;
+		Renderer l_renderer = trail.GetComponent<Renderer> ();
+		l_renderer.material = trailMaterial;
+		l_renderer.material.SetColor ("_TintColor", color);
 
 		//get and set the polygon collider on this trail.
 		collider = trail.GetComponent<PolygonCollider2D>();
