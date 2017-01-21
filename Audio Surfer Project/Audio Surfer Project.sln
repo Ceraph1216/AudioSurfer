@@ -1,0 +1,29 @@
+Microsoft Visual Studio Solution File, Format Version 11.00
+# Visual Studio 2008
+
+Project("{C219C2B1-0E3B-1BDE-B25F-B8EF7C18967F}") = "Audio Surfer Project", "Assembly-CSharp.csproj", "{872FAFA9-9C31-9F36-0DAF-A17ACEEE896E}"
+EndProject
+Project("{C219C2B1-0E3B-1BDE-B25F-B8EF7C18967F}") = "Audio Surfer Project", "Assembly-CSharp-Editor.csproj", "{C8861DFA-627F-89CF-163C-56E2D14E0FB9}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{872FAFA9-9C31-9F36-0DAF-A17ACEEE896E}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{872FAFA9-9C31-9F36-0DAF-A17ACEEE896E}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{872FAFA9-9C31-9F36-0DAF-A17ACEEE896E}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{872FAFA9-9C31-9F36-0DAF-A17ACEEE896E}.Release|Any CPU.Build.0 = Release|Any CPU
+		{C8861DFA-627F-89CF-163C-56E2D14E0FB9}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{C8861DFA-627F-89CF-163C-56E2D14E0FB9}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{C8861DFA-627F-89CF-163C-56E2D14E0FB9}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{C8861DFA-627F-89CF-163C-56E2D14E0FB9}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(MonoDevelopProperties) = preSolution
+		StartupItem = Assembly-CSharp.csproj
+	EndGlobalSection
+EndGlobal
