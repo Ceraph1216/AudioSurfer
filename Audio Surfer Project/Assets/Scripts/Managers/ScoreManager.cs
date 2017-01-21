@@ -9,6 +9,7 @@ public class ScoreManager : MonoBehaviour
 
 	public Text scoreText;
 	public float currentComboScore;
+	public int[] starThreshholds;
 
 	private int _currentScore;
 	public int currentScore
@@ -24,16 +25,28 @@ public class ScoreManager : MonoBehaviour
 		}
 	}
 
+	public float currentScoreMod
+	{
+		get 
+		{
+			float l_lengthMod = 1 + (Mathf.Max((_comboTricks.Count -1) * Constants.LENGTH_MODIFIER, 0));
+			float l_variationMod = 1 + (Mathf.Max((_usedTricks.Count -1) * Constants.VARIATION_MODIFIER, 0));
+
+			return l_lengthMod + l_variationMod;
+		}
+	}
+
 	private List<Trick> _comboTricks;
 	private List <Enums.TrickType> _usedTricks;
 
-	public int[] starThreshholds;
+	private ComboEffect _comboEffect;
 
 	void Awake ()
 	{
 		instance = this;
 		_comboTricks = new List<Trick> ();
 		_usedTricks = new List<Enums.TrickType> ();
+		_comboEffect = GameObject.FindObjectOfType<ComboEffect> ();
 	}
 
 	public void AddTrick (Trick p_trick)
@@ -48,15 +61,23 @@ public class ScoreManager : MonoBehaviour
 
 	public void CompleteCombo ()
 	{
-		float l_lengthMod = 1f + (_comboTricks.Count * Constants.LENGTH_MODIFIER);
-		float l_variationMod = 1f + (_usedTricks.Count * Constants.VARIATION_MODIFIER);
+		if (currentComboScore <= 0) 
+		{
+			return;
+		}
 
-		currentComboScore = currentComboScore * l_lengthMod * l_variationMod;
+		float l_lengthMod = 1 + (Mathf.Max((_comboTricks.Count -1) * Constants.LENGTH_MODIFIER, 0));
+		float l_variationMod = 1 + (Mathf.Max((_usedTricks.Count -1) * Constants.VARIATION_MODIFIER, 0));
+
+		currentComboScore = currentComboScore * (l_lengthMod + l_variationMod);
+		_comboEffect.ShowTotalCombo (currentComboScore, l_lengthMod, l_variationMod);
 
 		currentScore += (int)currentComboScore;
 		currentComboScore = 0;
 		_comboTricks = new List<Trick> ();
 		_usedTricks = new List<Enums.TrickType> ();
+
+
 	}
 
 	public void Wipeout ()

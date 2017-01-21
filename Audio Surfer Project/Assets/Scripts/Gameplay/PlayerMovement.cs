@@ -26,7 +26,7 @@ public class PlayerMovement : MonoBehaviour
 		CheckGrounded ();
 		CheckPlayerInput ();
 		MovePlayer ();
-		CheckScore ();
+//		CheckScore ();
 		UpdateTrick ();
 
 		_previousY = WaveManager.instance.groundY;
