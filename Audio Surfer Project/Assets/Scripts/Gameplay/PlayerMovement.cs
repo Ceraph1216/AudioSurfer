@@ -12,6 +12,7 @@ public class PlayerMovement : MonoBehaviour
 	private float _currentJumpforce;
 	private int _currentJumpCount;
 	private float _currentTrickCooldown;
+	private float _currentWipeoutTimer;
 
 	// Use this for initialization
 	void Awake () 
@@ -99,6 +100,12 @@ public class PlayerMovement : MonoBehaviour
 
 	private void CheckPlayerInput ()
 	{
+		if (_currentWipeoutTimer > 0) 
+		{
+			_currentWipeoutTimer -= Time.deltaTime;
+			return;
+		}
+
 		if (_groundedState == Enums.PlayerGroundState.OnGround) 
 		{
 			if (Input.GetAxis ("Jump") > 0) 
@@ -109,6 +116,11 @@ public class PlayerMovement : MonoBehaviour
 		else 
 		{
 			if (Input.GetAxis ("Jump") > 0) 
+			{
+				Jump ();
+			}
+
+			if (Input.GetAxis ("Trick1") > 0) 
 			{
 				DoTrick (Enums.TrickType.Trick1);
 			}
@@ -248,5 +260,6 @@ public class PlayerMovement : MonoBehaviour
 	private void Wipeout ()
 	{
 		ScoreManager.instance.Wipeout ();
+		_currentWipeoutTimer = Constants.WIPEOUT_TIMER;
 	}
 }

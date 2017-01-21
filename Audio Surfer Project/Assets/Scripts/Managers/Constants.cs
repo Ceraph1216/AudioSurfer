@@ -13,4 +13,5 @@ public class Constants
 	public const float AIR_SCORE_PER_SECOND = 50f;
 	public const float LENGTH_MODIFIER = 0.05f;
 	public const float VARIATION_MODIFIER = 1f;
+	public const float WIPEOUT_TIMER = 0.5f;
 }
