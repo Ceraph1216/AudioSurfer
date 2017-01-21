@@ -138,6 +138,7 @@ public class PlayerMovement : MonoBehaviour
 		if (l_newPosition.y < l_groundY) 
 		{
 			l_newPosition.y = l_groundY;
+			Land ();
 		}
 
 		_transform.position = l_newPosition;
@@ -155,6 +156,11 @@ public class PlayerMovement : MonoBehaviour
 	private void Jump ()
 	{
 		if (_currentJumpCount > Constants.AIR_JUMP_LIMIT) 
+		{
+			return;
+		}
+
+		if (_groundedState == Enums.PlayerGroundState.InAir && _currentVelocity > 0) 
 		{
 			return;
 		}
