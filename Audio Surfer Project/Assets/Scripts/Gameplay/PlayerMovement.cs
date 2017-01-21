@@ -9,6 +9,9 @@ public class PlayerMovement : MonoBehaviour
 	private float _currentVelocity;
 	private float _previousY;
 
+	private float _currentJumpforce;
+	private int _currentJumpCount;
+
 	// Use this for initialization
 	void Awake () 
 	{
@@ -19,6 +22,7 @@ public class PlayerMovement : MonoBehaviour
 	void Update () 
 	{
 		CheckGrounded ();
+		CheckPlayerInput ();
 		MovePlayer ();
 
 		_previousY = WaveManager.instance.groundY;
@@ -49,14 +53,14 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if (_currentVelocity > 0) 
 			{
-				Jump ();
+				Launch ();
 				return;
 			}
 		}
 
 		if (l_groundY < _previousY)  
 		{
-			Jump ();
+			Launch ();
 			return;
 		} 
 
@@ -90,6 +94,24 @@ public class PlayerMovement : MonoBehaviour
 		}*/
 	}
 
+	private void CheckPlayerInput ()
+	{
+		if (_groundedState == Enums.PlayerGroundState.OnGround) 
+		{
+			if (Input.GetAxis ("Jump") > 0) 
+			{
+				Jump ();
+			}
+		}
+		else 
+		{
+			if (Input.GetAxis ("Jump") > 0) 
+			{
+				Jump ();
+			}
+		}
+	}
+
 	private void MovePlayer ()
 	{
 		// Move the player by our velocity if we're in the air
@@ -121,7 +143,7 @@ public class PlayerMovement : MonoBehaviour
 		_transform.position = l_newPosition;
 	}
 
-	private void Jump ()
+	private void Launch ()
 	{
 		// Do jumping stuff
 		if (_groundedState == Enums.PlayerGroundState.OnGround) 
@@ -130,12 +152,31 @@ public class PlayerMovement : MonoBehaviour
 		}
 	}
 
+	private void Jump ()
+	{
+		if (_currentJumpCount > Constants.AIR_JUMP_LIMIT) 
+		{
+			return;
+		}
+
+		if (_currentVelocity < 0) 
+		{
+			_currentVelocity = 0;
+		}
+
+		_currentVelocity += _currentJumpforce;
+		_currentJumpforce = _currentJumpforce / 2f;
+		_currentJumpCount++;
+	}
+
 	private void Land ()
 	{
 		// Do landing stuff
 		if (_groundedState == Enums.PlayerGroundState.InAir) 
 		{
 			_groundedState = Enums.PlayerGroundState.OnGround;
+			_currentJumpforce = Constants.JUMP_VELOCITY;
+			_currentJumpCount = 0;
 		}
 	}
 }
