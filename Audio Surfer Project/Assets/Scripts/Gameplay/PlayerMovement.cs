@@ -11,6 +11,7 @@ public class PlayerMovement : MonoBehaviour
 
 	private float _currentJumpforce;
 	private int _currentJumpCount;
+	private float _currentTrickCooldown;
 
 	// Use this for initialization
 	void Awake () 
@@ -25,6 +26,7 @@ public class PlayerMovement : MonoBehaviour
 		CheckPlayerInput ();
 		MovePlayer ();
 		CheckScore ();
+		UpdateTrick ();
 
 		_previousY = WaveManager.instance.groundY;
 	}
@@ -108,7 +110,17 @@ public class PlayerMovement : MonoBehaviour
 		{
 			if (Input.GetAxis ("Jump") > 0) 
 			{
-				Jump ();
+				DoTrick (Enums.TrickType.Trick1);
+			}
+
+			if (Input.GetAxis ("Trick2") > 0) 
+			{
+				DoTrick (Enums.TrickType.Trick2);
+			}
+
+			if (Input.GetAxis ("Trick3") > 0) 
+			{
+				DoTrick (Enums.TrickType.Trick3);
 			}
 		}
 	}
@@ -155,6 +167,15 @@ public class PlayerMovement : MonoBehaviour
 		ScoreManager.instance.currentComboScore += Constants.AIR_SCORE_PER_SECOND * Time.deltaTime;
 	}
 
+	private void UpdateTrick ()
+	{
+		if (_currentTrickCooldown > 0) 
+		{
+			_currentTrickCooldown -= Time.deltaTime;
+			return;
+		}
+	}
+
 	private void Launch ()
 	{
 		// Do jumping stuff
@@ -185,6 +206,23 @@ public class PlayerMovement : MonoBehaviour
 		_currentJumpforce = _currentJumpforce / 1.5f;
 		_currentJumpCount++;
 		Launch ();
+	}
+
+	private void DoTrick (Enums.TrickType p_trickType)
+	{
+		if (_currentTrickCooldown > 0) 
+		{
+			return;
+		}
+
+		Trick l_currentTrick = TrickManager.instance.GetTrick (p_trickType);
+
+		//TODO: play animation
+
+		ScoreManager.instance.currentComboScore += l_currentTrick.score;
+		_currentTrickCooldown = l_currentTrick.cooldown;
+
+		Jump ();
 	}
 
 	private void Land ()
