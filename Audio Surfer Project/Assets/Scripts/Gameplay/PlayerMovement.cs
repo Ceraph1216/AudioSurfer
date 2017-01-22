@@ -5,6 +5,8 @@ using UnityEngine;
 public class PlayerMovement : MonoBehaviour 
 {
 	public ParticleSystem wipeoutParticles;
+	public ParticleSystem landParticles;
+	public ParticleSystem groundParticles;
 
 	private Enums.PlayerGroundState _groundedState;
 	private float _currentVelocity;
@@ -200,6 +202,8 @@ public class PlayerMovement : MonoBehaviour
 		{
 			_groundedState = Enums.PlayerGroundState.InAir;
 			_animator.SetBool ("Grounded", false);
+			ParticleSystem.EmissionModule l_emission = groundParticles.emission;
+			l_emission.enabled = false;
 		}
 	}
 
@@ -263,6 +267,9 @@ public class PlayerMovement : MonoBehaviour
 				ScoreManager.instance.CompleteCombo ();
 			}
 			_animator.SetBool ("Grounded", true);
+			landParticles.Emit (15);
+			ParticleSystem.EmissionModule l_emission = groundParticles.emission;
+			l_emission.enabled = true;
 		}
 	}
 
