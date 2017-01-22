@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour 
 {
+	public ParticleSystem wipeoutParticles;
+
 	private Enums.PlayerGroundState _groundedState;
 	private float _currentVelocity;
 	private float _previousY;
@@ -274,5 +276,6 @@ public class PlayerMovement : MonoBehaviour
 		ScoreManager.instance.Wipeout ();
 		_currentWipeoutTimer = Constants.WIPEOUT_TIMER;
 		_animator.SetTrigger ("Wipeout");
+		wipeoutParticles.Emit (40);
 	}
 }
