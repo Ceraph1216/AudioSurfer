@@ -26,9 +26,9 @@ public class ScrollingBG : MonoBehaviour
 
 	private void Move ()
 	{
-		Vector3 l_newPosition = _transform.position;
+		Vector3 l_newPosition = _transform.localPosition;
 		l_newPosition.x += moveSpeed * Time.deltaTime;
-		_transform.position = l_newPosition;
+		_transform.localPosition = l_newPosition;
 	}
 
 	private void CheckWrap ()

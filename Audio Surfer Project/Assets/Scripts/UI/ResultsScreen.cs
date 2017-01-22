@@ -7,6 +7,7 @@ public class ResultsScreen : MonoBehaviour
 {
 	public Text resultsText;
 	private ConstantMovement[] _movements;
+//	private 
 	private PlayerMovement _player;
 
 	void Awake ()
