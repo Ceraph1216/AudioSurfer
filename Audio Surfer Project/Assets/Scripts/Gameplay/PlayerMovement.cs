@@ -8,6 +8,9 @@ public class PlayerMovement : MonoBehaviour
 	public ParticleSystem landParticles;
 	public ParticleSystem groundParticles;
 
+	public Animator frontAnimator;
+	public Animator backAnimator;
+
 	private Enums.PlayerGroundState _groundedState;
 	private float _currentVelocity;
 	private float _previousY;
@@ -18,13 +21,11 @@ public class PlayerMovement : MonoBehaviour
 	private float _currentWipeoutTimer;
 
 	private Transform _transform;
-	private Animator _animator;
 
 	// Use this for initialization
 	void Awake () 
 	{
 		_transform = transform;
-		_animator = GetComponentInChildren<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -201,7 +202,8 @@ public class PlayerMovement : MonoBehaviour
 		if (_groundedState == Enums.PlayerGroundState.OnGround) 
 		{
 			_groundedState = Enums.PlayerGroundState.InAir;
-			_animator.SetBool ("Grounded", false);
+			frontAnimator.SetBool ("Grounded", false);
+			backAnimator.SetBool ("Grounded", false);
 			ParticleSystem.EmissionModule l_emission = groundParticles.emission;
 			l_emission.enabled = false;
 		}
@@ -237,10 +239,12 @@ public class PlayerMovement : MonoBehaviour
 			return;
 		}
 
-		_animator.ResetTrigger ("Wipeout");
+		frontAnimator.ResetTrigger ("Wipeout");
+		backAnimator.ResetTrigger ("Wipeout");
 		Trick l_currentTrick = TrickManager.instance.GetTrick (p_trickType);
 
-		_animator.SetTrigger (p_trickType.ToString ());
+		frontAnimator.SetTrigger (p_trickType.ToString ());
+		backAnimator.SetTrigger (p_trickType.ToString ());
 
 		//TODO: play animation
 
@@ -266,7 +270,8 @@ public class PlayerMovement : MonoBehaviour
 			{
 				ScoreManager.instance.CompleteCombo ();
 			}
-			_animator.SetBool ("Grounded", true);
+			frontAnimator.SetBool ("Grounded", true);
+			backAnimator.SetBool ("Grounded", true);
 			landParticles.Emit (15);
 			ParticleSystem.EmissionModule l_emission = groundParticles.emission;
 			l_emission.enabled = true;
@@ -282,7 +287,8 @@ public class PlayerMovement : MonoBehaviour
 			
 		ScoreManager.instance.Wipeout ();
 		_currentWipeoutTimer = Constants.WIPEOUT_TIMER;
-		_animator.SetTrigger ("Wipeout");
+		frontAnimator.SetTrigger ("Wipeout");
+		backAnimator.SetTrigger ("Wipeout");
 		wipeoutParticles.Emit (40);
 	}
 
