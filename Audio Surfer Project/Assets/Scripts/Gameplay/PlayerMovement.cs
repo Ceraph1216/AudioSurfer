@@ -4,7 +4,6 @@ using UnityEngine;
 
 public class PlayerMovement : MonoBehaviour 
 {
-	private Transform _transform;
 	private Enums.PlayerGroundState _groundedState;
 	private float _currentVelocity;
 	private float _previousY;
@@ -14,10 +13,14 @@ public class PlayerMovement : MonoBehaviour
 	private float _currentTrickCooldown;
 	private float _currentWipeoutTimer;
 
+	private Transform _transform;
+	private Animator _animator;
+
 	// Use this for initialization
 	void Awake () 
 	{
 		_transform = transform;
+		_animator = GetComponentInChildren<Animator> ();
 	}
 	
 	// Update is called once per frame
@@ -194,6 +197,7 @@ public class PlayerMovement : MonoBehaviour
 		if (_groundedState == Enums.PlayerGroundState.OnGround) 
 		{
 			_groundedState = Enums.PlayerGroundState.InAir;
+			_animator.SetBool ("Grounded", false);
 		}
 	}
 
@@ -213,7 +217,7 @@ public class PlayerMovement : MonoBehaviour
 		{
 			_currentVelocity = 0;
 		}
-
+			
 		_currentVelocity += _currentJumpforce;
 		_currentJumpforce = _currentJumpforce / 1.3f;
 		_currentJumpCount++;
@@ -227,7 +231,10 @@ public class PlayerMovement : MonoBehaviour
 			return;
 		}
 
+		_animator.ResetTrigger ("Wipeout");
 		Trick l_currentTrick = TrickManager.instance.GetTrick (p_trickType);
+
+		_animator.SetTrigger (p_trickType.ToString ());
 
 		//TODO: play animation
 
@@ -253,13 +260,19 @@ public class PlayerMovement : MonoBehaviour
 			{
 				ScoreManager.instance.CompleteCombo ();
 			}
-
+			_animator.SetBool ("Grounded", true);
 		}
 	}
 
 	private void Wipeout ()
 	{
+		if (_currentWipeoutTimer > 0) 
+		{
+			return;
+		}
+			
 		ScoreManager.instance.Wipeout ();
 		_currentWipeoutTimer = Constants.WIPEOUT_TIMER;
+		_animator.SetTrigger ("Wipeout");
 	}
 }
