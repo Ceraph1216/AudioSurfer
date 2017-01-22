@@ -7,7 +7,7 @@ public class ResultsScreen : MonoBehaviour
 {
 	public Text resultsText;
 	private ConstantMovement[] _movements;
-//	private 
+	private ScrollingBG[] _bgs;
 	private PlayerMovement _player;
 
 	void Awake ()
@@ -32,7 +32,12 @@ public class ResultsScreen : MonoBehaviour
 			_movements [i].enabled = false;
 		}
 
-		_player.enabled = false;
+		for (int i = 0; i < _bgs.Length; i++) 
+		{
+			_bgs [i].enabled = false;
+		}
+
+		_player.EndGame ();
 	}
 
 	public void OnPlayClick ()

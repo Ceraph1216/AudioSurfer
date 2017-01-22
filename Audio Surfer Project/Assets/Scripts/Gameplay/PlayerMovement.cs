@@ -285,4 +285,15 @@ public class PlayerMovement : MonoBehaviour
 		_animator.SetTrigger ("Wipeout");
 		wipeoutParticles.Emit (40);
 	}
+
+	public void EndGame ()
+	{
+		ParticleSystem.EmissionModule l_emission = groundParticles.emission;
+		l_emission.enabled = false;
+
+		l_emission = landParticles.emission;
+		l_emission.enabled = false;
+
+		enabled = false;
+	}
 }

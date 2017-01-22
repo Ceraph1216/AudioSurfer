@@ -9,6 +9,8 @@ public class ScoreManager : MonoBehaviour
 
 	public Text scoreText;
 	public float currentComboScore;
+	public GameObject wipeoutImage;
+	public GameObject comboImage;
 	public int[] starThreshholds;
 	public Image[] starFills;
 
@@ -97,7 +99,7 @@ public class ScoreManager : MonoBehaviour
 		_comboTricks = new List<Trick> ();
 		_usedTricks = new List<Enums.TrickType> ();
 
-
+		comboImage.SetActive (true);
 	}
 
 	public void Wipeout ()
@@ -105,6 +107,8 @@ public class ScoreManager : MonoBehaviour
 		currentComboScore = 0;
 		_comboTricks = new List<Trick> ();
 		_usedTricks = new List<Enums.TrickType> ();
+
+		wipeoutImage.SetActive (true);
 	}
 
 	private void GetStar ()

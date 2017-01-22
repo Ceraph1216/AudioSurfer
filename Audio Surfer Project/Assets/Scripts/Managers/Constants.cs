@@ -16,4 +16,6 @@ public class Constants
 	public const float WIPEOUT_TIMER = 0.5f;
 	public const float COMBO_FADE_TIMER = 2f;
 	public const float END_WAIT_TIME = 2f;
+	public const float EFFECT_FADE_WAIT = 1f;
+	public const float EFFECT_FADE_TIME = 1f;
 }
