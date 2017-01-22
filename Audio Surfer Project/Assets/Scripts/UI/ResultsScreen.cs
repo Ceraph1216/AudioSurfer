@@ -23,4 +23,9 @@ public class ResultsScreen : MonoBehaviour
 	{
 		UnityEngine.SceneManagement.SceneManager.LoadScene ("GameScreen");
 	}
+
+	public void OnTitleClick ()
+	{
+		UnityEngine.SceneManagement.SceneManager.LoadScene ("TitleScreen");
+	}
 }
