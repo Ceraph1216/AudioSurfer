@@ -6,6 +6,14 @@ using UnityEngine.UI;
 public class ResultsScreen : MonoBehaviour 
 {
 	public Text resultsText;
+	private ConstantMovement[] _movements;
+	private PlayerMovement _player;
+
+	void Awake ()
+	{
+		_movements = GameObject.FindObjectsOfType<ConstantMovement>();
+		_player = GameObject.FindObjectOfType<PlayerMovement> ();
+	}
 
 	void OnEnable ()
 	{
@@ -17,6 +25,13 @@ public class ResultsScreen : MonoBehaviour
 		{
 			resultsText.text = "Oh no! You lost!";
 		}
+
+		for (int i = 0; i < _movements.Length; i++) 
+		{
+			_movements [i].enabled = false;
+		}
+
+		_player.enabled = false;
 	}
 
 	public void OnPlayClick ()

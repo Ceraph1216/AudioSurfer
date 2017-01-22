@@ -11,7 +11,7 @@ public class WaveManager : MonoBehaviour
 	public LayerMask floorMask;
 
 	private Transform _transform;
-	private ConstantMovement _movement;
+
 
 
 	private float _groundY;
@@ -28,12 +28,10 @@ public class WaveManager : MonoBehaviour
 	}
 
 	private float _currentWaitTimer;
-	private bool _gameEnded;
 
 	void Awake ()
 	{
 		_transform = transform;
-		_movement = GameObject.FindObjectOfType<ConstantMovement> ();
 		_currentWaitTimer = Constants.END_WAIT_TIME;
 		instance = this;
 	}
@@ -72,14 +70,8 @@ public class WaveManager : MonoBehaviour
 			_currentWaitTimer -= Time.deltaTime;
 			return;
 		}
-
-		if (_gameEnded) 
-		{
-			return;
-		}
-
-		_movement.enabled = false;
+			
 		resultsScreen.SetActive (true);
-		_gameEnded = true;
+		enabled = false;
 	}
 }
