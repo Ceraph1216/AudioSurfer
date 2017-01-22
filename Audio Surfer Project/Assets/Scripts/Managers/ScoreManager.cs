@@ -10,6 +10,7 @@ public class ScoreManager : MonoBehaviour
 	public Text scoreText;
 	public float currentComboScore;
 	public int[] starThreshholds;
+	public Image[] starFills;
 
 	private int _currentScore;
 	public int currentScore
@@ -22,6 +23,17 @@ public class ScoreManager : MonoBehaviour
 		{
 			_currentScore = value;
 			scoreText.text = _currentScore.ToString ();
+
+			if (_updateStars) 
+			{
+				float l_starDiff = (float)_currentStarGoal - (float)_previousStarGoal;
+				_currentStar.fillAmount = (float)(_currentScore - _previousStarGoal) / l_starDiff;
+
+				if (_currentScore >= _currentStarGoal) 
+				{
+					GetStar ();
+				}
+			}
 		}
 	}
 
@@ -38,6 +50,11 @@ public class ScoreManager : MonoBehaviour
 
 	private List<Trick> _comboTricks;
 	private List <Enums.TrickType> _usedTricks;
+	private int _currentStarGoal;
+	private int _previousStarGoal;
+	private Image _currentStar;
+	private int _currentStars;
+	private bool _updateStars;
 
 	private ComboEffect _comboEffect;
 
@@ -47,6 +64,9 @@ public class ScoreManager : MonoBehaviour
 		_comboTricks = new List<Trick> ();
 		_usedTricks = new List<Enums.TrickType> ();
 		_comboEffect = GameObject.FindObjectOfType<ComboEffect> ();
+		_currentStarGoal = starThreshholds [0];
+		_currentStar = starFills [0];
+		_updateStars = true;
 	}
 
 	public void AddTrick (Trick p_trick)
@@ -85,5 +105,20 @@ public class ScoreManager : MonoBehaviour
 		currentComboScore = 0;
 		_comboTricks = new List<Trick> ();
 		_usedTricks = new List<Enums.TrickType> ();
+	}
+
+	private void GetStar ()
+	{
+		if (_currentStars < starThreshholds.Length -1) 
+		{
+			_currentStars++;
+			_currentStar = starFills [_currentStars];
+			_previousStarGoal = _currentStarGoal;
+			_currentStarGoal = starThreshholds [_currentStars];
+		} 
+		else 
+		{
+			_updateStars = false;
+		}
 	}
 }
