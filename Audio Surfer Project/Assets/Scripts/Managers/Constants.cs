@@ -15,4 +15,5 @@ public class Constants
 	public const float VARIATION_MODIFIER = 5f;
 	public const float WIPEOUT_TIMER = 0.5f;
 	public const float COMBO_FADE_TIMER = 2f;
+	public const float END_WAIT_TIME = 2f;
 }

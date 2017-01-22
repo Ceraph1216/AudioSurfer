@@ -6,9 +6,13 @@ public class WaveManager : MonoBehaviour
 {
 	public static WaveManager instance;
 
+	public AudioSource music;
+	public GameObject resultsScreen;
 	public LayerMask floorMask;
 
 	private Transform _transform;
+	private ConstantMovement _movement;
+
 
 	private float _groundY;
 	public float groundY
@@ -23,9 +27,14 @@ public class WaveManager : MonoBehaviour
 		}
 	}
 
+	private float _currentWaitTimer;
+	private bool _gameEnded;
+
 	void Awake ()
 	{
 		_transform = transform;
+		_movement = GameObject.FindObjectOfType<ConstantMovement> ();
+		_currentWaitTimer = Constants.END_WAIT_TIME;
 		instance = this;
 	}
 	
@@ -33,6 +42,7 @@ public class WaveManager : MonoBehaviour
 	void Update () 
 	{
 		DrawRays ();
+		UpdateEnd ();
 	}
 
 	private void DrawRays()
@@ -48,5 +58,28 @@ public class WaveManager : MonoBehaviour
 		{
 			groundY = l_hitGround.point.y;
 		}
+	}
+
+	private void UpdateEnd()
+	{
+		if (music.isPlaying) 
+		{
+			return;
+		}
+
+		if (_currentWaitTimer > 0) 
+		{
+			_currentWaitTimer -= Time.deltaTime;
+			return;
+		}
+
+		if (_gameEnded) 
+		{
+			return;
+		}
+
+		_movement.enabled = false;
+		resultsScreen.SetActive (true);
+		_gameEnded = true;
 	}
 }
