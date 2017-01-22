@@ -7,6 +7,7 @@ public class PlayerMovement : MonoBehaviour
 	public ParticleSystem wipeoutParticles;
 	public ParticleSystem landParticles;
 	public ParticleSystem groundParticles;
+	public ParticleSystem playerTrail;
 
 	public Animator frontAnimator;
 	public Animator backAnimator;
@@ -297,8 +298,8 @@ public class PlayerMovement : MonoBehaviour
 		ParticleSystem.EmissionModule l_emission = groundParticles.emission;
 		l_emission.enabled = false;
 
-		l_emission = landParticles.emission;
-		l_emission.enabled = false;
+		ParticleSystem.EmissionModule l_emission2 = playerTrail.emission;
+		l_emission2.enabled = false;
 
 		enabled = false;
 	}

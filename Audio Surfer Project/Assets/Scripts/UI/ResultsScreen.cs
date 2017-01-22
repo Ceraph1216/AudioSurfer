@@ -13,6 +13,7 @@ public class ResultsScreen : MonoBehaviour
 	void Awake ()
 	{
 		_movements = GameObject.FindObjectsOfType<ConstantMovement>();
+		_bgs = GameObject.FindObjectsOfType<ScrollingBG> ();
 		_player = GameObject.FindObjectOfType<PlayerMovement> ();
 	}
 
